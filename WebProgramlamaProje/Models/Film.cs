@@ -1,16 +1,16 @@
-﻿namespace WebProgramlamaProje.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebProgramlamaProje.Models
 {
     public class Film
     {
         public int FilmID { get; set; }
-        public String FilmAd { get; set; }
+        [Required]
+        public string FilmAd { get; set; }
 
         public float FilmPuan { get; set; }
-
-        public List<Oyuncu> Oyuncular { get; set; }
-
-        public Yonetmen Yonetmen { get; set; }
-
-        public List<KullaniciPuan> KullaniciPuan { get; set; }
+        public virtual ICollection<Oyuncu> Oyuncular { get; set; }
+        public virtual Yonetmen Yonetmen { get; set; }
+        public virtual ICollection<KullaniciPuan> KullaniciPuan { get; set; }
     }
 }

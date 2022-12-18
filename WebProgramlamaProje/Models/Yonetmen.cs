@@ -4,7 +4,7 @@
     {
         public int YonetmenID { get; set; }
         public string YonetmenAd { get; set; }
-        public List<Film> Filmer { get; set; }
+        public virtual ICollection<Film> Filmler { get; set; }
 
     }
 }
