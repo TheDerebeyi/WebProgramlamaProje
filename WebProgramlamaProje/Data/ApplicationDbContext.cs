@@ -11,7 +11,6 @@ namespace WebProgramlamaProje.Data
         public DbSet<Oyuncu> Oyuncular { get; set; }
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<KullaniciPuan> KullaniciPuanlar { get; set; }
-        public DbSet<KullaniciType> KullaniciTypelar { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

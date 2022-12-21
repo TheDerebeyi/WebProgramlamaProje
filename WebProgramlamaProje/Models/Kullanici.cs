@@ -1,15 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebProgramlamaProje.Models
 {
-    public class Kullanici
+    public class Kullanici : IdentityUser
     {
-        public int KullaniciID { get; set; }
-        [Required]
-        public string Username { get; set; }
-        [Required]
-        public int Password { get; set; }
-        public virtual KullaniciType KullaniciType { get; set; }
+        public string Ad { get; set; }
+        public string Soyad { get; set; }
         public virtual ICollection<KullaniciPuan> KullaniciPuan { get; set; }
     }
 }
