@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
@@ -11,9 +12,10 @@ using WebProgramlamaProje.Data;
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221225232930_2612220228")]
+    partial class _2612220228
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -426,21 +428,17 @@ namespace WebProgramlamaProje.Data.Migrations
 
             modelBuilder.Entity("WebProgramlamaProje.Models.FilmOyuncu", b =>
                 {
-                    b.HasOne("WebProgramlamaProje.Models.Film", "Film")
+                    b.HasOne("WebProgramlamaProje.Models.Film", null)
                         .WithMany("Oyuncular")
                         .HasForeignKey("FilmID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebProgramlamaProje.Models.Oyuncu", "Oyuncu")
+                    b.HasOne("WebProgramlamaProje.Models.Oyuncu", null)
                         .WithMany("Filmler")
                         .HasForeignKey("OyuncuID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Film");
-
-                    b.Navigation("Oyuncu");
                 });
 
             modelBuilder.Entity("WebProgramlamaProje.Models.KullaniciPuan", b =>

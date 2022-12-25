@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="View">
+        <form asp-action="FilmSubmit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FilmAd" class="control-label"></label>
@@ -23,14 +23,14 @@
                 <span asp-validation-for="FilmCikis" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Yonetmen" class="control-label"></label>
-                <select asp-for="Yonetmen" class="form-control" asp-items="@ViewBag.Yonetmen"></select>
-                <span asp-validation-for="Yonetmen" class="text-danger"></span>
+                <label asp-for="YonetmenID" class="control-label"></label>
+                <select asp-for="YonetmenID" class="form-control" asp-items="@ViewBag.Yonetmen"></select>
+                <span asp-validation-for="YonetmenID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Oyuncular" class="control-label"></label>
-                <select asp-for="Oyuncular" class="form-control" asp-items="@ViewBag.Oyuncular"></select>
-                <span asp-validation-for="Oyuncular" class="text-danger"></span>
+                <label asp-for="OyuncuID" class="control-label"></label>
+                <select asp-for="OyuncuID" class="form-control" asp-items="@ViewBag.Oyuncular"></select>
+                <span asp-validation-for="OyuncuID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Filmi Ekle" class="btn btn-primary" />

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebProgramlamaProje.Models
 {
@@ -9,10 +11,23 @@ namespace WebProgramlamaProje.Models
         [Display(Name = "Başlık:")]
         public string FilmAd { get; set; }
         [Display(Name = "Puan:")]
+        [ValidateNever]
         public float FilmPuan { get; set; }
+        [Required]
+        [Display(Name = "Çıkış Tarihi:")]
         public DateTime FilmCikis { get; set; }
-        public virtual ICollection<Oyuncu> Oyuncular { get; set; }
+        [Required]
+        [Display(Name = "Oyuncular:")]
+        [NotMapped]
+        public ICollection<int> OyuncuID { get; set; }
+        [ValidateNever]
+        public ICollection<FilmOyuncu> Oyuncular { get; set; }
+        [Required]
+        [Display(Name = "Yönetmen:")]
+        public int YonetmenID { get; set; }
+        [ValidateNever]
         public virtual Yonetmen Yonetmen { get; set; }
+        [ValidateNever]
         public virtual ICollection<KullaniciPuan> KullaniciPuan { get; set; }
     }
 }

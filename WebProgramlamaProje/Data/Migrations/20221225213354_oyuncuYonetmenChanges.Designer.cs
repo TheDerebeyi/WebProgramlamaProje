@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
@@ -11,9 +12,10 @@ using WebProgramlamaProje.Data;
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221225213354_oyuncuYonetmenChanges")]
+    partial class oyuncuYonetmenChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace WebProgramlamaProje.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("FilmOyuncu", b =>
+                {
+                    b.Property<int>("FilmlerFilmID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OyuncularOyuncuID")
+                        .HasColumnType("int");
+
+                    b.HasKey("FilmlerFilmID", "OyuncularOyuncuID");
+
+                    b.HasIndex("OyuncularOyuncuID");
+
+                    b.ToTable("FilmOyuncu");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -258,29 +275,6 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.ToTable("Filmler");
                 });
 
-            modelBuilder.Entity("WebProgramlamaProje.Models.FilmOyuncu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("FilmID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OyuncuID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilmID");
-
-                    b.HasIndex("OyuncuID");
-
-                    b.ToTable("FilmOyuncu");
-                });
-
             modelBuilder.Entity("WebProgramlamaProje.Models.KullaniciPuan", b =>
                 {
                     b.Property<int>("KullaniciPuanID")
@@ -362,6 +356,21 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.HasDiscriminator().HasValue("Kullanici");
                 });
 
+            modelBuilder.Entity("FilmOyuncu", b =>
+                {
+                    b.HasOne("WebProgramlamaProje.Models.Film", null)
+                        .WithMany()
+                        .HasForeignKey("FilmlerFilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebProgramlamaProje.Models.Oyuncu", null)
+                        .WithMany()
+                        .HasForeignKey("OyuncularOyuncuID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -424,25 +433,6 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Navigation("Yonetmen");
                 });
 
-            modelBuilder.Entity("WebProgramlamaProje.Models.FilmOyuncu", b =>
-                {
-                    b.HasOne("WebProgramlamaProje.Models.Film", "Film")
-                        .WithMany("Oyuncular")
-                        .HasForeignKey("FilmID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebProgramlamaProje.Models.Oyuncu", "Oyuncu")
-                        .WithMany("Filmler")
-                        .HasForeignKey("OyuncuID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Film");
-
-                    b.Navigation("Oyuncu");
-                });
-
             modelBuilder.Entity("WebProgramlamaProje.Models.KullaniciPuan", b =>
                 {
                     b.HasOne("WebProgramlamaProje.Models.Film", "Film")
@@ -463,13 +453,6 @@ namespace WebProgramlamaProje.Data.Migrations
             modelBuilder.Entity("WebProgramlamaProje.Models.Film", b =>
                 {
                     b.Navigation("KullaniciPuan");
-
-                    b.Navigation("Oyuncular");
-                });
-
-            modelBuilder.Entity("WebProgramlamaProje.Models.Oyuncu", b =>
-                {
-                    b.Navigation("Filmler");
                 });
 
             modelBuilder.Entity("WebProgramlamaProje.Models.Yonetmen", b =>

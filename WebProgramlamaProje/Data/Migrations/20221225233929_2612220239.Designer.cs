@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
@@ -11,9 +12,10 @@ using WebProgramlamaProje.Data;
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221225233929_2612220239")]
+    partial class _2612220239
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,7 +271,13 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Property<int>("FilmID")
                         .HasColumnType("int");
 
+                    b.Property<int>("FilmlerFilmID")
+                        .HasColumnType("int");
+
                     b.Property<int>("OyuncuID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OyuncularOyuncuID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

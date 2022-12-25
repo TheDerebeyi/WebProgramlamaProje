@@ -1,0 +1,30 @@
+﻿@model WebProgramlamaProje.Models.Yonetmen
+
+@{
+    ViewData["Title"] = "Yonetmen";
+}
+
+<h1>Yonetmen</h1>
+
+<div>
+    <h4>Yonetmen</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.YonetmenAd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.YonetmenAd)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.YonetmenYas)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.YonetmenYas)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.YonetmenID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
