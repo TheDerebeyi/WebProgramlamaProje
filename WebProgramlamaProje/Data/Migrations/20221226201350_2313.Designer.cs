@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
@@ -11,9 +12,10 @@ using WebProgramlamaProje.Data;
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221226201350_2313")]
+    partial class _2313
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,9 +33,6 @@ namespace WebProgramlamaProje.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("KullaniciId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -43,8 +42,6 @@ namespace WebProgramlamaProje.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KullaniciId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -360,18 +357,16 @@ namespace WebProgramlamaProje.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RolId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Soyad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Kullanici");
-                });
+                    b.HasIndex("RolId");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.HasOne("WebProgramlamaProje.Models.Kullanici", null)
-                        .WithMany("Rol")
-                        .HasForeignKey("KullaniciId");
+                    b.HasDiscriminator().HasValue("Kullanici");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -472,6 +467,15 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Navigation("Kullanici");
                 });
 
+            modelBuilder.Entity("WebProgramlamaProje.Models.Kullanici", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Rol")
+                        .WithMany()
+                        .HasForeignKey("RolId");
+
+                    b.Navigation("Rol");
+                });
+
             modelBuilder.Entity("WebProgramlamaProje.Models.Film", b =>
                 {
                     b.Navigation("KullaniciPuan");
@@ -492,8 +496,6 @@ namespace WebProgramlamaProje.Data.Migrations
             modelBuilder.Entity("WebProgramlamaProje.Models.Kullanici", b =>
                 {
                     b.Navigation("KullaniciPuan");
-
-                    b.Navigation("Rol");
                 });
 #pragma warning restore 612, 618
         }

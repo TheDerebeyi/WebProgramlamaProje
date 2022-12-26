@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebProgramlamaProje.Models.Film>
+
+@{
+    ViewData["Title"] = "Filmler";
+}
+
+<h1>Filmler</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FilmAd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilmPuan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilmCikis)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Yonetmen)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilmAd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilmPuan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FilmCikis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yonetmen.YonetmenAd)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FilmID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FilmID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FilmID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebProgramlamaProje.Models.Oyuncu>
+
+@{
+    ViewData["Title"] = "Oyuncular";
+}
+
+<h1>Oyuncular</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OyuncuAd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OyuncuYas)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OyuncuAd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OyuncuYas)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OyuncuID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OyuncuID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OyuncuID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
