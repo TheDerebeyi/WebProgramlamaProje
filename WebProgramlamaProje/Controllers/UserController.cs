@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using WebProgramlamaProje.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
+using NuGet.Protocol;
+using System.Collections.Generic;
 
 namespace WebProgramlamaProje.Controllers
 {
@@ -13,9 +16,11 @@ namespace WebProgramlamaProje.Controllers
     public class UserController : Controller
     {
         ApplicationDbContext context;
-        public UserController(ApplicationDbContext _context)
+        UserManager<Kullanici> userManager;
+        public UserController(ApplicationDbContext _context, UserManager<Kullanici> _userManager)
         {
             context = _context;
+            userManager = _userManager;
         }
         public IActionResult FilmEkle()
         {
@@ -42,7 +47,7 @@ namespace WebProgramlamaProje.Controllers
                 context.SaveChanges();
                 foreach (int id in film.OyuncuID.ToList())
                 {
-                    context.Add(new FilmOyuncu() { FilmID=film.FilmID, OyuncuID=id });
+                    context.Add(new FilmOyuncu() { FilmID = film.FilmID, OyuncuID = id });
                 }
                 context.SaveChanges();
                 return RedirectToAction("Film", new { id = film.FilmID });
@@ -55,6 +60,14 @@ namespace WebProgramlamaProje.Controllers
         {
             if (id == null) return NotFound();
             Film film = await context.Filmler.FirstOrDefaultAsync(f => f.FilmID.Equals(id));
+            IEnumerable<KullaniciPuan> puanlar = from p in context.KullaniciPuanlar where p.FilmID == id select p;
+            float puan = 0.0f;
+            foreach (KullaniciPuan p in puanlar)
+            {
+                puan += p.Puan;
+            }
+            puan /= puanlar.Count();
+            film.FilmPuan = puan;
             if (film is not null)
                 return View(film);
             else
@@ -114,6 +127,34 @@ namespace WebProgramlamaProje.Controllers
                 return View(yonetmen);
             else
                 return NotFound();
+        }
+
+        public IActionResult Puanla(int puan, int filmID)
+        {
+            var user = userManager.FindByNameAsync(User.Identity.Name);
+            string userID = user.Result.Id;
+            KullaniciPuan kp = context.KullaniciPuanlar.FirstOrDefault(p => p.KullaniciID.Equals(userID) && p.FilmID.Equals(filmID));
+            if (kp is not null)
+            {
+                kp.Puan = puan;
+                context.Update(kp);
+            }
+            else
+            {
+                KullaniciPuan kpNew = new KullaniciPuan()
+                {
+                    FilmID = filmID,
+                    KullaniciID = userID,
+                    Puan = puan
+                };
+                context.Add(kpNew);
+            }
+
+
+
+            context.SaveChanges();
+
+            return RedirectToAction("Film", new { id = filmID });
         }
     }
 }

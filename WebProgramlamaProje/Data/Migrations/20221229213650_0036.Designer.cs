@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
@@ -11,9 +12,10 @@ using WebProgramlamaProje.Data;
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221229213650_0036")]
+    partial class _0036
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -297,8 +299,7 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Property<int>("FilmID")
                         .HasColumnType("int");
 
-                    b.Property<string>("KullaniciID")
-                        .IsRequired()
+                    b.Property<string>("KullaniciId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Puan")
@@ -308,7 +309,7 @@ namespace WebProgramlamaProje.Data.Migrations
 
                     b.HasIndex("FilmID");
 
-                    b.HasIndex("KullaniciID");
+                    b.HasIndex("KullaniciId");
 
                     b.ToTable("KullaniciPuanlar");
                 });
@@ -469,9 +470,7 @@ namespace WebProgramlamaProje.Data.Migrations
 
                     b.HasOne("WebProgramlamaProje.Models.Kullanici", "Kullanici")
                         .WithMany("KullaniciPuan")
-                        .HasForeignKey("KullaniciID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KullaniciId");
 
                     b.Navigation("Film");
 

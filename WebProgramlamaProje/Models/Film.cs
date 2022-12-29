@@ -10,6 +10,10 @@ namespace WebProgramlamaProje.Models
         [Required]
         [Display(Name = "Başlık:")]
         public string FilmAd { get; set; }
+        [Display(Name ="Açıklama:")]
+        [MaxLength(400)]
+        [Required]
+        public string FilmDesc { get; set; }
         [Display(Name = "Puan:")]
         [ValidateNever]
         public float FilmPuan { get; set; }

@@ -9,6 +9,10 @@ namespace WebProgramlamaProje.Models
         [Required]
         [Display(Name ="Oyuncu ismi:")]
         public string OyuncuAd { get; set; }
+        [Display(Name = "Açıklama:")]
+        [MaxLength(400)]
+        [Required]
+        public string OyuncuDesc { get; set; }
         [Required]
         [Display(Name = "Oyuncu yaşı:")]
         [Range(15,100)]
