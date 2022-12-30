@@ -14,6 +14,8 @@ namespace WebProgramlamaProje.Models
         [MaxLength(400)]
         [Required]
         public string FilmDesc { get; set; }
+        [Required]
+        public string FilmTur { get; set; }
         [Display(Name = "Puan:")]
         [ValidateNever]
         public float FilmPuan { get; set; }

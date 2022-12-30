@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
   font-size: 14px;
 }
@@ -23,4 +27,44 @@ body {
 
 .nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
     margin-top: 0;
-}  
+}
+
+.puanla-label-head {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.puanla-label {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 20%;
+}
+
+.hidden {
+    display: none;
+}
+
+.movie-caption {
+    position: absolute;
+    right: 15%;
+    left: 15%;
+    padding-top:110%;
+    pedding-bottom:1.25rem;
+    color: #fff;
+    text-align: center;
+}
+
+.movie-rating {
+    position: absolute;
+    right: 15%;
+    left: 15%;
+    padding-top: 130%;
+    pedding-bottom: 1.25rem;
+    color: #fff;
+    text-align: center;
+}
+.movie-cover {
+    height: 360px;
+    aspect-ratio: 0.67;
+    position: relative;
+}

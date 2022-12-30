@@ -51,5 +51,19 @@ namespace WebProgramlamaProje.Controllers
             return View(kullanicilar);
         }
 
+        public IActionResult AdminYap(string? id)
+        {
+            if(id is null) return BadRequest();
+
+            IdentityUserRole<string> userRole = (from r in context.UserRoles where id == r.UserId select r).First();
+            if(userRole is null) return BadRequest();
+            IdentityRole<string> adminRole = (from a in context.Roles where a.Name == "Admin" select a).First();
+            userRole.RoleId = adminRole.Id;
+            context.UserRoles.Update(userRole);
+            context.SaveChanges();
+
+            return RedirectToAction("Kullanicilar");
+        }
+
     }
 }
