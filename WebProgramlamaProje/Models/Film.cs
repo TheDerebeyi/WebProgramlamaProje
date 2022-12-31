@@ -19,6 +19,7 @@ namespace WebProgramlamaProje.Models
         [Display(Name = "Puan:")]
         [ValidateNever]
         public float FilmPuan { get; set; }
+        public string FilmPosterUrl { get; set; }
         [Required]
         [Display(Name = "Çıkış Tarihi:")]
         public DateTime FilmCikis { get; set; }

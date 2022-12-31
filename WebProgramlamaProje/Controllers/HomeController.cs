@@ -11,17 +11,18 @@ namespace WebProgramlamaProje.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private ApplicationDbContext _context = new ApplicationDbContext(new DbContextOptionsBuilder<ApplicationDbContext>().Options);
+        private ApplicationDbContext context;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext _context)
         {
-            _context = context;
+            context = _context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Film> filmler = (from f in context.Filmler select f).ToList();
+            return View(filmler);
         }
 
         public IActionResult Privacy()

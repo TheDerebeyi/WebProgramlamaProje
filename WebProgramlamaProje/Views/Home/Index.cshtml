@@ -3,7 +3,8 @@
 }
 
 
-@model WebProgramlamaProje.Models.Film
+@model List<WebProgramlamaProje.Models.Film>
+
 
 <div class="container">
     <div class="row" style="margin-bottom:50px">
@@ -11,27 +12,42 @@
             <h6 class="text-center"> Aksiyon</h6>
             <div id="carouselAksiyon" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
+                    @{
+                        bool first = false;
+                        for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var item = Model[i];
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
+                            if (item.FilmTur == "Aksiyon")
+                            {
+                                if (!first)
+                                {
+                                        <div class="carousel-item active">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    first = true;
+                                }
+                                else
+                                {
+                                        <div class="carousel-item">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div><div style="background-size:cover;background-image: url(" @item.FilmPosterUrl");height:360px;aspect-ratio:0.67" class="d-block"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                }
+                            }
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -39,56 +55,84 @@
             <h6 class="text-center"> Bilim Kurgu</h6>
             <div id="carouselScifi" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
+                    @{
+                        first = false;
+                        for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var item = Model[i];
+                            if (item.FilmTur == "Bilim Kurgu")
+                            {
+                                if (!first)
+                                {
+                                        <div class="carousel-item active">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                                <div class="carousel-caption d-none d-md-block">
+                                            <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    first = true;
+                                }
+                                else
+                                {
+                                        <div class="carousel-item">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                                <div class="carousel-caption d-none d-md-block">
+                                            <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
-
-                        </div>
-                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                }
+                            }
+                        }
+                    }
                 </div>
-                </button>
             </div>
         </div>
         <div class="col-md">
             <h6 class="text-center" style="text-decoration:line-through;color:red">Aşk</h6>
             <div id="carouselL" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
+                    @{
+                        first = false;
+                        for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var item = Model[i];
+                            if (item.FilmTur == "Aşk")
+                            {
+                                if (!first)
+                                {
+                                        <div class="carousel-item active">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    first = true;
+                                }
+                                else
+                                {
+                                        <div class="carousel-item">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                }
+                            }
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -96,43 +140,78 @@
             <h6 class="text-center"> Korku</h6>
             <div id="carouselKorku" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
+                    @{
+                        first = false;
+                        for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var item = Model[i];
+                            if (item.FilmTur == "Korku")
+                            {
+                                if (!first)
+                                {
+                                        <div class="carousel-item active">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                                <div class="carousel-caption d-none d-md-block">
+                                                <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    first = true;
+                                }
+                                else
+                                {
+                                        <div class="carousel-item">
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
+                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID><div class="carousel-caption d-none d-md-block">
+                                                <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div style="background-color:gray;height:360px;aspect-ratio:0.67" class="d-block"></div>
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
-                        </div>
-                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                }
+                            }
+                        }
+                    }
                 </div>
             </div>
         </div>
     </div>
-    <div style="background-color:aqua">
-        <h5 class="text-center">En iyiler</h5>
+    <div>
+        <h5 class="text-center">En iyiler</h5><br />
         <div class="row">
-            <div class="col-md"><div style="background-color:mediumvioletred;" class="d-block movie-cover"><h5 class="movie-caption">Başlık</h5><h5 class="movie-rating">5</h5></div></div>
-            <div class="col-md">
-                <div style="background-color:green;" class="d-block movie-cover"><h5 class="movie-caption">Başlık</h5><h5 class="movie-rating">5</h5></div>
-            </div>
-            <div class="col-md">
-                <div style="background-color:darkblue;" class="d-block movie-cover"><h5 class="movie-caption">Başlık</h5><h5 class="movie-rating">5</h5></div>
-            </div>
-            <div class="col-md">
-                <div style="background-color:linen;" class="d-block movie-cover"><h5 class="movie-caption">Başlık</h5><h5 class="movie-rating">5</h5></div>
-            </div>
+            @{
+                Model.Sort((Film f1, Film f2) =>
+                {
+                    if (f1.FilmPuan == f2.FilmPuan)
+                    {
+                        return 0;
+                    }
+                    else if (f1.FilmPuan > f2.FilmPuan)
+                    {
+                        return -1;
+                    }
+                    else
+                    {
+                        return 1;
+                    }
+                });
+                int counter = 0;
+                foreach (var item in Model)
+                {
+                    if (counter == 4) break;
+                        <div class="col-md-3">
+                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block movie-cover">
+                                <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID><h5 class="movie-caption">@Html.DisplayFor(modelItem => item.FilmAd)</h5>
+                                <h5 class="movie-rating">Puan: @Html.DisplayFor(modelItem => item.FilmPuan)</h5></a>
+                            </div>
+                        </div>
+                    counter++;
+                }
+            }
+
+
         </div>
 
     </div>

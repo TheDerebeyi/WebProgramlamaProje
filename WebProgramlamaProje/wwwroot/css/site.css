@@ -67,4 +67,11 @@ body {
     height: 360px;
     aspect-ratio: 0.67;
     position: relative;
+    background-size: cover;
+}
+
+.corousel-movie-item {
+    background-size: cover;
+    height: 360px;
+    aspect-ratio: 0.67
 }
