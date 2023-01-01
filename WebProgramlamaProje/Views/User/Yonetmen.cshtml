@@ -4,10 +4,9 @@
     ViewData["Title"] = "Yonetmen";
 }
 
-<h1>Yonetmen</h1>
+<h1>Yönetmen</h1>
 
 <div>
-    <h4>Yonetmen</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -29,8 +28,4 @@
             @Html.DisplayFor(model => model.YonetmenDesc)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.YonetmenID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>

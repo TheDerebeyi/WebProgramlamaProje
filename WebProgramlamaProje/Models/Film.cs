@@ -11,7 +11,7 @@ namespace WebProgramlamaProje.Models
         [Display(Name = "Başlık:")]
         public string FilmAd { get; set; }
         [Display(Name ="Açıklama:")]
-        [MaxLength(400)]
+        [MaxLength(1000)]
         [Required]
         public string FilmDesc { get; set; }
         [Required]
@@ -19,6 +19,7 @@ namespace WebProgramlamaProje.Models
         [Display(Name = "Puan:")]
         [ValidateNever]
         public float FilmPuan { get; set; }
+        [ValidateNever]
         public string FilmPosterUrl { get; set; }
         [Required]
         [Display(Name = "Çıkış Tarihi:")]
@@ -29,6 +30,9 @@ namespace WebProgramlamaProje.Models
         public ICollection<int> OyuncuID { get; set; }
         [ValidateNever]
         public ICollection<FilmOyuncu> Oyuncular { get; set; }
+        [ValidateNever]
+        [NotMapped]
+        public ICollection<Oyuncu> OyuncuList { get; set; }
         [Required]
         [Display(Name = "Yönetmen:")]
         public int YonetmenID { get; set; }

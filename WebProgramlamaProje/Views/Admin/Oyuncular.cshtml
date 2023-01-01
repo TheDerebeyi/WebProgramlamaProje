@@ -38,9 +38,9 @@
                     @Html.DisplayFor(modelItem => item.OyuncuDesc)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OyuncuID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.OyuncuID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.OyuncuID">Delete</a>
+                    <a asp-action="OyuncuEdit" asp-route-id="@item.OyuncuID">Düzenle</a> |
+                    <a asp-controller="User" asp-action="Oyuncu" asp-route-id="@item.OyuncuID">Detaylar</a> |
+                    <a asp-action="OyuncuSil" asp-route-id="@item.OyuncuID">Sil</a>
                 </td>
             </tr>
         }

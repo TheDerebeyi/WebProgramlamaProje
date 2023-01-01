@@ -52,9 +52,7 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>   |
+                    <a asp-action="KullaniciSil" asp-route-id="@item.Id">Sil</a>   |
                     @if(item.Rol.Where(x=> x.Name == "Admin").Count() == 0){<a asp-action="AdminYap" asp-route-id="@item.Id" >Admin Yap</a>}
                 </td>
             </tr>

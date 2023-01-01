@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
@@ -11,9 +12,10 @@ using WebProgramlamaProje.Data;
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221231183341_appdbcontextchange2133")]
+    partial class appdbcontextchange2133
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace WebProgramlamaProje.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("FilmOyuncu", b =>
+                {
+                    b.Property<int>("FilmlerFilmID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OyuncularOyuncuID")
+                        .HasColumnType("int");
+
+                    b.HasKey("FilmlerFilmID", "OyuncularOyuncuID");
+
+                    b.HasIndex("OyuncularOyuncuID");
+
+                    b.ToTable("FilmOyuncu");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -247,8 +264,8 @@ namespace WebProgramlamaProje.Data.Migrations
 
                     b.Property<string>("FilmDesc")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<string>("FilmPosterUrl")
                         .IsRequired()
@@ -291,7 +308,7 @@ namespace WebProgramlamaProje.Data.Migrations
 
                     b.HasIndex("OyuncuID");
 
-                    b.ToTable("FilmOyuncu");
+                    b.ToTable("FilmOyuncular");
                 });
 
             modelBuilder.Entity("WebProgramlamaProje.Models.KullaniciPuan", b =>
@@ -333,14 +350,10 @@ namespace WebProgramlamaProje.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OyuncuCinsiyet")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("OyuncuDesc")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<int>("OyuncuYas")
                         .HasColumnType("int");
@@ -362,14 +375,10 @@ namespace WebProgramlamaProje.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("YonetmenCinsiyet")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("YonetmenDesc")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<int>("YonetmenYas")
                         .HasColumnType("int");
@@ -392,6 +401,21 @@ namespace WebProgramlamaProje.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Kullanici");
+                });
+
+            modelBuilder.Entity("FilmOyuncu", b =>
+                {
+                    b.HasOne("WebProgramlamaProje.Models.Film", null)
+                        .WithMany()
+                        .HasForeignKey("FilmlerFilmID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebProgramlamaProje.Models.Oyuncu", null)
+                        .WithMany()
+                        .HasForeignKey("OyuncularOyuncuID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -459,13 +483,13 @@ namespace WebProgramlamaProje.Data.Migrations
             modelBuilder.Entity("WebProgramlamaProje.Models.FilmOyuncu", b =>
                 {
                     b.HasOne("WebProgramlamaProje.Models.Film", "Film")
-                        .WithMany("Oyuncular")
+                        .WithMany()
                         .HasForeignKey("FilmID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebProgramlamaProje.Models.Oyuncu", "Oyuncu")
-                        .WithMany("Filmler")
+                        .WithMany()
                         .HasForeignKey("OyuncuID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -497,13 +521,6 @@ namespace WebProgramlamaProje.Data.Migrations
             modelBuilder.Entity("WebProgramlamaProje.Models.Film", b =>
                 {
                     b.Navigation("KullaniciPuan");
-
-                    b.Navigation("Oyuncular");
-                });
-
-            modelBuilder.Entity("WebProgramlamaProje.Models.Oyuncu", b =>
-                {
-                    b.Navigation("Filmler");
                 });
 
             modelBuilder.Entity("WebProgramlamaProje.Models.Yonetmen", b =>

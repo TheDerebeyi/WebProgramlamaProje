@@ -11,9 +11,12 @@ namespace WebProgramlamaProje.Models
         [Display(Name = "Yönetmen ismi:")]
         public string YonetmenAd { get; set; }
         [Display(Name = "Açıklama:")]
-        [MaxLength(400)]
+        [MaxLength(1000)]
         [Required]
         public string YonetmenDesc { get; set; }
+        [Required]
+        [Display(Name = "Cinsiyet:")]
+        public string YonetmenCinsiyet { get; set; }
         [Required]
         [Display(Name = "Yönetmen yaşı:")]
         [Range(18, 100)]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProgramlamaProje.Data;
 
@@ -11,9 +12,10 @@ using WebProgramlamaProje.Data;
 namespace WebProgramlamaProje.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221231182020_2120")]
+    partial class _2120
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,8 +249,8 @@ namespace WebProgramlamaProje.Data.Migrations
 
                     b.Property<string>("FilmDesc")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<string>("FilmPosterUrl")
                         .IsRequired()
@@ -329,23 +331,24 @@ namespace WebProgramlamaProje.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OyuncuID"), 1L, 1);
 
-                    b.Property<string>("OyuncuAd")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("FilmID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("OyuncuCinsiyet")
+                    b.Property<string>("OyuncuAd")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OyuncuDesc")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<int>("OyuncuYas")
                         .HasColumnType("int");
 
                     b.HasKey("OyuncuID");
+
+                    b.HasIndex("FilmID");
 
                     b.ToTable("Oyuncular");
                 });
@@ -362,14 +365,10 @@ namespace WebProgramlamaProje.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("YonetmenCinsiyet")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("YonetmenDesc")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<int>("YonetmenYas")
                         .HasColumnType("int");
@@ -459,7 +458,7 @@ namespace WebProgramlamaProje.Data.Migrations
             modelBuilder.Entity("WebProgramlamaProje.Models.FilmOyuncu", b =>
                 {
                     b.HasOne("WebProgramlamaProje.Models.Film", "Film")
-                        .WithMany("Oyuncular")
+                        .WithMany()
                         .HasForeignKey("FilmID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -492,6 +491,13 @@ namespace WebProgramlamaProje.Data.Migrations
                     b.Navigation("Film");
 
                     b.Navigation("Kullanici");
+                });
+
+            modelBuilder.Entity("WebProgramlamaProje.Models.Oyuncu", b =>
+                {
+                    b.HasOne("WebProgramlamaProje.Models.Film", null)
+                        .WithMany("Oyuncular")
+                        .HasForeignKey("FilmID");
                 });
 
             modelBuilder.Entity("WebProgramlamaProje.Models.Film", b =>

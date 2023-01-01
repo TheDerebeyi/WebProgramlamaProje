@@ -6,9 +6,9 @@
 
 <h1>Yonetmenler</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (ViewBag.errMsg is not null) @ViewBag.errMsg
+
+
 <table class="table">
     <thead>
         <tr>
@@ -38,9 +38,9 @@
                     @Html.DisplayFor(modelItem => item.YonetmenDesc)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.YonetmenID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.YonetmenID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.YonetmenID">Delete</a>
+                    <a asp-action="YonetmenEdit" asp-route-id="@item.YonetmenID">Düzenle</a> |
+                    <a asp-controller="User" asp-action="Yonetmen" asp-route-id="@item.YonetmenID">Detaylar</a> |
+                    <a asp-action="YonetmenSil" asp-route-id="@item.YonetmenID">Sil</a>
                 </td>
             </tr>
         }

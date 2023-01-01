@@ -107,10 +107,14 @@ namespace WebProgramlamaProje.Controllers
 
         public IActionResult FilmSubmit(Film film)
         {
+
             if (ModelState.IsValid)
             {
-                film.FilmPosterUrl = FilmUrl(film);
+                film.FilmPosterUrl = "";
                 context.Add(film);
+                context.SaveChanges();
+                film.FilmPosterUrl = FilmUrl(film);
+                context.Update(film);
                 context.SaveChanges();
                 foreach (int id in film.OyuncuID.ToList())
                 {
@@ -127,8 +131,20 @@ namespace WebProgramlamaProje.Controllers
         {
             if (id == null) return NotFound();
             Film? film = await context.Filmler.FirstOrDefaultAsync(f => f.FilmID.Equals(id));
+
+            IEnumerable<FilmOyuncu>? filmOyuncular = from o in context.FilmOyuncu where o.FilmID == id select o;
+            List<Oyuncu> oyuncular = new List<Oyuncu>();
+            foreach (var fo in filmOyuncular)
+            {
+                Oyuncu? oyuncu = (from o in context.Oyuncular where o.OyuncuID == fo.OyuncuID select o).FirstOrDefault();
+                oyuncular.Add(oyuncu);
+            }
             if (film is not null)
+            {
+                film.Yonetmen = (from y in context.Yonetmenler where y.YonetmenID == film.YonetmenID select y).FirstOrDefault();
+                film.OyuncuList = oyuncular;
                 return View(film);
+            }
             else
                 return NotFound();
         }
@@ -213,16 +229,16 @@ namespace WebProgramlamaProje.Controllers
             if (film is not null)
             {
                 IEnumerable<KullaniciPuan> puanlar = from p in context.KullaniciPuanlar where p.FilmID == filmID select p;
-            float puanFilm = 0.0f;
-            foreach (KullaniciPuan p in puanlar)
-            {
-                puanFilm += p.Puan;
-            }
-            puanFilm /= puanlar.Count();
+                float puanFilm = 0.0f;
+                foreach (KullaniciPuan p in puanlar)
+                {
+                    puanFilm += p.Puan;
+                }
+                puanFilm /= puanlar.Count();
 
                 film.FilmPuan = puan;
                 context.Update(film);
-            
+
             }
 
             context.SaveChanges();
