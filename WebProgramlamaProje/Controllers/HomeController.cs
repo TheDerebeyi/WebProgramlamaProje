@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using WebProgramlamaProje.Data;
 using WebProgramlamaProje.Models;
 
@@ -34,6 +37,18 @@ namespace WebProgramlamaProje.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Dil(string culture)
+        {
+            Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+               CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+               new CookieOptions { Expires = DateTimeOffset.Now.AddDays(10) }
+           );
+
+
+            return RedirectToAction("Index");
         }
     }
 }

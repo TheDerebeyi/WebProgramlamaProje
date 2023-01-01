@@ -1,0 +1,25 @@
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+
+namespace WebProgramlamaProje.Models
+{
+    public class Oyuncu
+    {
+        public int OyuncuID { get; set; }
+        [Required]
+        [Display(Name ="Oyuncu ismi:")]
+        public string OyuncuAd { get; set; }
+        [Display(Name = "Açıklama:")]
+        [MaxLength(1000)]
+        [Required]
+        public string OyuncuDesc { get; set; }
+        [Required]
+        [Display(Name = "Cinsiyet:")]
+        public string OyuncuCinsiyet { get; set; }
+        [Required]
+        [Display(Name = "Oyuncu yaşı:")]
+        [Range(15,100)]
+        public int OyuncuYas { get; set; }
+        
+    }
+}

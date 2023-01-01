@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer;
+@{
+    ViewData["Title"] = Localizer["Title"];
 }
 
 
@@ -9,7 +11,7 @@
 <div class="container">
     <div class="row" style="margin-bottom:50px">
         <div class="col-md">
-            <h6 class="text-center"> Aksiyon</h6>
+            <h6 class="text-center"> @Localizer["Action"]</h6>
             <div id="carouselAksiyon" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @{
@@ -52,7 +54,7 @@
             </div>
         </div>
         <div class="col-md">
-            <h6 class="text-center"> Bilim Kurgu</h6>
+            <h6 class="text-center"> @Localizer["Scifi"]</h6>
             <div id="carouselScifi" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @{
@@ -94,7 +96,7 @@
             </div>
         </div>
         <div class="col-md">
-            <h6 class="text-center" style="text-decoration:line-through;color:red">Aşk</h6>
+            <h6 class="text-center" style="text-decoration:line-through;color:red">@Localizer["Love"]</h6>
             <div id="carouselL" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @{
@@ -137,7 +139,7 @@
             </div>
         </div>
         <div class="col-md">
-            <h6 class="text-center"> Korku</h6>
+            <h6 class="text-center"> @Localizer["Horror"]</h6>
             <div id="carouselKorku" class="carousel slide" style="width:min-content" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @{
@@ -179,7 +181,7 @@
         </div>
     </div>
     <div>
-        <h5 class="text-center">En iyiler</h5><br />
+        <h5 class="text-center">@Localizer["Best"]</h5><br />
         <div class="row">
             @{
                 Model.Sort((Film f1, Film f2) =>

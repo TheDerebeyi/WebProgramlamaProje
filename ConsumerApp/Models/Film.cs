@@ -11,7 +11,7 @@ namespace WebProgramlamaProje.Models
         [Required]
         [Display(Name = "Başlık:")]
         public string FilmAd { get; set; }
-        [Display(Name ="Açıklama:")]
+        [Display(Name = "Açıklama:")]
         [MaxLength(1000)]
         [Required]
         public string FilmDesc { get; set; }
@@ -30,9 +30,6 @@ namespace WebProgramlamaProje.Models
         [NotMapped]
         public ICollection<int> OyuncuID { get; set; }
         [ValidateNever]
-        [JsonIgnore]
-        public ICollection<FilmOyuncu> Oyuncular { get; set; }
-        [ValidateNever]
         [NotMapped]
         [JsonIgnore]
         public ICollection<Oyuncu> OyuncuList { get; set; }
@@ -42,8 +39,5 @@ namespace WebProgramlamaProje.Models
         [ValidateNever]
         [JsonIgnore]
         public virtual Yonetmen Yonetmen { get; set; }
-        [ValidateNever]
-        [JsonIgnore]
-        public virtual ICollection<KullaniciPuan> KullaniciPuan { get; set; }
     }
 }

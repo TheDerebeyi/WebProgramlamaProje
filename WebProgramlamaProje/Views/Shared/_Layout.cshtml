@@ -1,4 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization;
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.TwoLetterISOLanguageName })
+        .ToList();
+    foreach(var item in cultureItems){
+        if (Context.Request.Cookies[".AspNetCore.Culture"] == CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(item.Value)))
+        {
+            item.Selected = true;
+        }
+        
+    }
+}
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -20,22 +40,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                         </li>
-                        @if(User.Identity.IsAuthenticated){
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Ekle</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="FilmEkle">Film</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="YonetmenEkle">Yonetmen</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="OyuncuEkle">Oyuncu</a>
-                            </div>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@Localizer["Add"]</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="FilmEkle">@Localizer["Movie"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="YonetmenEkle">@Localizer["Director"]</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="OyuncuEkle">@Localizer["Actor"]</a>
+                                </div>
+                            </li>
                         }
-                        @if(User.IsInRole("Admin")){
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Panel">Admin Paneli</a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Panel">@Localizer["Panel"]</a>
+                            </li>
                         }
                     </ul>
                     <partial name="_LoginPartial" />
@@ -50,14 +72,22 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container text-center">
+        <div class="container text-center d-inline-block">
             &copy; 2023 - WebProgramlamaProje - Lütfi Mert Kahraman - B201210040 - lutfi.kahraman@ogr.sakarya.edu.tr - FilmDb
         </div>
+        <form asp-controller="Home" asp-action="Dil" method="post" class=" d-inline-block">
+            <label>@Localizer["Language"]:</label>
+            <select name="culture" onchange="this.form.submit()" asp-items="cultureItems">
+            </select>
+        </form>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <partial name="_ValidationScriptsPartial" />
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
+
+
