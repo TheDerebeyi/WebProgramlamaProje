@@ -204,11 +204,12 @@ namespace WebProgramlamaProje.Controllers
                 return NotFound();
         }
 
-        public IActionResult Puanla(int puan, int filmID)
+        
+        public async Task<IActionResult> Puanla(int puan, int filmID)
         {
-            var user = userManager.FindByNameAsync(User.Identity.Name);
-            string userID = user.Result.Id;
-            KullaniciPuan? kp = context.KullaniciPuanlar.FirstOrDefault(p => p.KullaniciID.Equals(userID) && p.FilmID.Equals(filmID));
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            string userID = user.Id;
+            KullaniciPuan? kp = await context.KullaniciPuanlar.FirstOrDefaultAsync(p => p.KullaniciID.Equals(userID) && p.FilmID.Equals(filmID));
             if (kp is not null)
             {
                 kp.Puan = puan;
@@ -222,10 +223,10 @@ namespace WebProgramlamaProje.Controllers
                     KullaniciID = userID,
                     Puan = puan
                 };
-                context.Add(kpNew);
+                await context.AddAsync(kpNew);
             }
-
-            Film? film = context.Filmler.FirstOrDefault(f => f.FilmID.Equals(filmID));
+            await context.SaveChangesAsync();
+            Film? film = await context.Filmler.FirstOrDefaultAsync(f => f.FilmID.Equals(filmID));
             if (film is not null)
             {
                 IEnumerable<KullaniciPuan> puanlar = from p in context.KullaniciPuanlar where p.FilmID == filmID select p;
@@ -236,12 +237,12 @@ namespace WebProgramlamaProje.Controllers
                 }
                 puanFilm /= puanlar.Count();
 
-                film.FilmPuan = puan;
+                film.FilmPuan = puanFilm;
                 context.Update(film);
 
             }
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return RedirectToAction("Film", new { id = filmID });
         }
