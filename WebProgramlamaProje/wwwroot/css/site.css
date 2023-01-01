@@ -68,10 +68,20 @@ body {
     aspect-ratio: 0.67;
     position: relative;
     background-size: cover;
+    transition: box-shadow 0.3s;
 }
+
+    .movie-cover:hover {
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
 
 .corousel-movie-item {
     background-size: cover;
     height: 360px;
-    aspect-ratio: 0.67
+    aspect-ratio: 0.67;
+    transition: box-shadow 0.3s;
+}
+
+.carousel-item .corousel-movie-item:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }

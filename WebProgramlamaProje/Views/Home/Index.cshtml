@@ -24,21 +24,24 @@
                             {
                                 if (!first)
                                 {
-                                        <div class="carousel-item active">
+                                                                           
+                                    <div class="carousel-item active">
+
                                         <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
-                                            <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
+                                             <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
                                                 <div class="carousel-caption d-none d-md-block">
                                                 <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>
 
-                                                </div>
-                                            </a>
+                                            </div>
+                                        </a>
+                                            
                                         </div>
                                     first = true;
                                 }
                                 else
                                 {
                                         <div class="carousel-item">
-                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div><div style="background-size:cover;background-image: url(" @item.FilmPosterUrl");height:360px;aspect-ratio:0.67" class="d-block"></div>
+                                        <div style="background-image: url('@item.FilmPosterUrl');" class="d-block corousel-movie-item"></div>
                                             <a asp-controller="User" asp-action="Film" asp-route-id=@item.FilmID>
                                                 <div class="carousel-caption d-none d-md-block">
                                                 <h5>@Html.DisplayFor(modelItem => item.FilmAd)</h5>

@@ -4,23 +4,24 @@
     ViewData["Title"] = "Oyuncu Ekle";
 }
 
-<h1>Oyuncu Ekle</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="width:50%; margin:auto">
+    <div class="col-md">
         <form asp-action="OyuncuSubmit">
+            <h1>Oyuncu Ekle</h1>
+
+            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="OyuncuAd" class="control-label"></label>
                 <input asp-for="OyuncuAd" class="form-control" />
                 <span asp-validation-for="OyuncuAd" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="OyuncuYas" class="control-label"></label>
                 <input asp-for="OyuncuYas" class="form-control" />
                 <span asp-validation-for="OyuncuYas" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="OyuncuCinsiyet" class="control-label"></label>
                 <select asp-for="OyuncuCinsiyet" class="form-control">
@@ -28,12 +29,12 @@
                     <option value="Kadın">Kadın</option>
                 </select>
                 <span asp-validation-for="OyuncuCinsiyet" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="OyuncuDesc" class="control-label"></label>
                 <textarea maxlength="1000" asp-for="OyuncuDesc" class="form-control"></textarea>
                 <span asp-validation-for="OyuncuDesc" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

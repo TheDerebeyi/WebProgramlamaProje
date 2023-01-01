@@ -4,43 +4,44 @@
     ViewData["Title"] = "Film Düzenle";
 }
 
-<h1>Film Düzenle</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+<div class="row" style="width:50%; margin:auto">
+    <div class="col-md">
         <form asp-action="FilmEditSubmit">
+            <h1>Film Düzenle</h1>
+            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="FilmID" />
             <div class="form-group">
                 <label asp-for="FilmAd" class="control-label"></label>
                 <input asp-for="FilmAd" class="form-control" />
                 <span asp-validation-for="FilmAd" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="FilmDesc" class="control-label"></label>
                 <textarea maxlength="1000" asp-for="FilmDesc" class="form-control"></textarea>
                 <span asp-validation-for="FilmDesc" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="FilmTur" class="control-label"></label>
                 <input asp-for="FilmTur" class="form-control" />
                 <span asp-validation-for="FilmTur" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="FilmCikis" class="control-label"></label>
                 <input asp-for="FilmCikis" class="form-control" />
                 <span asp-validation-for="FilmCikis" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="YonetmenID" class="control-label"></label>
                 <select asp-for="YonetmenID" class="form-control" asp-items="ViewBag.YonetmenID"></select>
                 <span asp-validation-for="YonetmenID" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <label asp-for="OyuncuID" class="control-label"></label>
                 <select asp-for="OyuncuID" class="form-control" asp-items="@ViewBag.Oyuncular"></select>
                 <span asp-validation-for="OyuncuID" class="text-danger"></span>
-            </div>
+            </div><br />
             <div class="form-group">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
             </div>
