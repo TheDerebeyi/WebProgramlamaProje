@@ -1,10 +1,12 @@
-﻿@model WebProgramlamaProje.Models.Film
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model WebProgramlamaProje.Models.Film
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "Film Ekle";
+    ViewData["Title"] = Localizer["Title"];
 }
 
-<h1>Film Ekle</h1>
+<h1>@Localizer["Title"]</h1>
 
 <hr />
 <div class="row">

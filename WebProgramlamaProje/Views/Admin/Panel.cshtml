@@ -1,13 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
 
 <div style="text-align:center;padding-top:50px">
-    <a asp-action="Filmler"><h3>Filmleri Yönet</h3></a><br />
-    <a asp-action="Oyuncular"><h3>Oyuncuları Yönet</h3></a><br />
-    <a asp-action="Yonetmenler"><h3>Yönetmenleri Yönet</h3></a><br />
-    <a asp-action="Kullanicilar"><h3>Kullanıcıları Yönet</h3></a>
+    <a asp-action="Filmler"><h3>@Localizer["Movie"]</h3></a><br />
+    <a asp-action="Oyuncular"><h3>@Localizer["Actor"]</h3></a><br />
+    <a asp-action="Yonetmenler"><h3>@Localizer["Director"]</h3></a><br />
+    <a asp-action="Kullanicilar"><h3>@Localizer["User"]</h3></a>
 </div>
 <br />

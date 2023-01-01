@@ -16,6 +16,7 @@ namespace WebProgramlamaProje.Models
         [Required]
         public string FilmDesc { get; set; }
         [Required]
+        [Display(Name ="Tür:")]
         public string FilmTur { get; set; }
         [Display(Name = "Puan:")]
         [ValidateNever]
